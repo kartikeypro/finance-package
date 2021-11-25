@@ -51,3 +51,12 @@ def is_normal(data:pd.Series,level=0.01):
     statistic, p_value = scipy.stats.jarque_bera(data)
     return p_value>level
 
+def var(r: pd.Series, level=0.05,kind="historic"):
+    """
+    Allows to calculate
+    """
+    if (kind=="historic"):
+        return r.sort_values()[int((level)*r.shape[0])]
+    elif(kind=="normal"):
+        return norm.ppf(level)*r.std(ddof=0)+r.mean()
+
